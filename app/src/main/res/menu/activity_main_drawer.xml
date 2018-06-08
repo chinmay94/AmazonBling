@@ -34,7 +34,7 @@
             android:title="      Bling!" />
         <item
             android:id="@+id/nav_bling_influencer"
-            android:visible="false"
+            android:visible="true"
             android:title="      Bling Influencer!" />
         <item
             android:id="@+id/nav_sell"

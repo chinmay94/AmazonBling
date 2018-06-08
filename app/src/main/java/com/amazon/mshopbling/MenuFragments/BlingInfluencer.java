@@ -1,5 +1,6 @@
 package com.amazon.mshopbling.MenuFragments;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import com.amazon.mshopbling.Adapters.GridviewAdapter;
 import com.amazon.mshopbling.ExternalFragments.FullScreenImageFragment;
+import com.amazon.mshopbling.ExternalFragments.UploadInfluencerImageFragment;
 import com.amazon.mshopbling.MainActivity;
 import com.amazon.mshopbling.R;
 import com.amazon.mshopbling.Utils.FileUtils;
@@ -24,6 +26,7 @@ import java.util.List;
 public class BlingInfluencer extends Fragment {
 
     private boolean hasPermission;
+    private boolean hasPermission2;
     private String screenshotsFolderPrefix;
     private GridviewAdapter mAdapter;
     private Button button;
@@ -40,13 +43,14 @@ public class BlingInfluencer extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        /*screenshotsFolderPrefix = getResources().getString(R.string.screenshots_path);
-        hasPermission = PermissionUtils.checkSetExternalStoragePermission(this.getContext(), this.getActivity());
-        if(hasPermission){
+        screenshotsFolderPrefix = getResources().getString(R.string.screenshots_path);
+        hasPermission = PermissionUtils.checkSetPermission(this.getContext(), this.getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE);
+        hasPermission2 = PermissionUtils.checkSetPermission(this.getContext(), this.getActivity(), Manifest.permission.INTERNET);
+        if(hasPermission && hasPermission2) {
             populateList();
         } else {
             Toast.makeText(this.getContext(), "App does not have permission to read from storage", Toast.LENGTH_SHORT).show();
-        }*/
+        }
     }
 
     public void populateList() {
@@ -76,7 +80,7 @@ public class BlingInfluencer extends Fragment {
             public void onItemClick(AdapterView<?> arg0, View arg1, int position,
                                     long id) {
                 String imagePath = fileList.get(position).getAbsolutePath();
-                Fragment fragment = new FullScreenImageFragment();
+                Fragment fragment = new UploadInfluencerImageFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("imagePath", imagePath);
                 fragment.setArguments(bundle);

@@ -3,12 +3,9 @@ package com.amazon.mshopbling.AsyncTasks;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.widget.Toast;
 
-import com.amazon.mshopbling.ExternalFragments.SelectAsinFragment;
-import com.amazon.mshopbling.MainActivity;
 import com.amazon.mshopbling.R;
 
 import org.apache.commons.io.IOUtils;
@@ -18,28 +15,24 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.File;
 import java.io.InputStreamReader;
 
-public class UploadInfluencer extends AsyncTask<String,String,String> {
+public class SaveAsins extends AsyncTask<String,String,String> {
 
     Context mContext;
     private ProgressDialog dialog;
     private String mediaId;
 
-    public UploadInfluencer(Context context) {
+    public SaveAsins(Context context) {
         mContext = context;
         dialog = new ProgressDialog(mContext);
     }
 
     @Override
     protected void onPreExecute() {
-        dialog.setMessage("Uploading");
+        dialog.setMessage("Saving Asins");
         dialog.setCancelable(false);
         dialog.show();
     }
@@ -49,18 +42,19 @@ public class UploadInfluencer extends AsyncTask<String,String,String> {
         String responseString = "";
         try {
             String url = mContext.getResources().getString(R.string.heroku_url);
-            String apiName = mContext.getResources().getString(R.string.influencerUploadAPI);
+            String apiName = mContext.getResources().getString(R.string.addAsinApi);
             String apiUrl = url+apiName;
 
             HttpClient httpclient = new DefaultHttpClient();
             HttpPost httppost = new HttpPost(apiUrl);
 
-            FileBody fileContent = new FileBody(new File(strings[0]));
+            //FileBody fileContent = new FileBody(new File(strings[0]));
 
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-            builder.addPart("file", fileContent);
-            builder.addTextBody("tagValue", "assocamazonops");
+            //builder.addPart("file", fileContent);
+            builder.addTextBody("asinList", strings[0]);
+            builder.addTextBody("mediaId", strings[1]);
             httppost.setEntity(builder.build());
 
             HttpResponse response = httpclient.execute(httppost);
@@ -76,18 +70,12 @@ public class UploadInfluencer extends AsyncTask<String,String,String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
         dialog.dismiss();
-        try {
-            JSONObject jsonObject = new JSONObject(result);
-            mediaId = jsonObject.getString("mediaId");
-        } catch (JSONException e) {
-            Log.e("UploadInfluencer", "Json Parsing failed");
-        }
-        Fragment fragment = new SelectAsinFragment();
+        Toast.makeText(mContext, "Asins Added", Toast.LENGTH_SHORT).show();
+        /*Fragment fragment = new SelectAsinFragment();
         Bundle bundle = new Bundle();
         bundle.putString("mediaId", mediaId);
         fragment.setArguments(bundle);
         MainActivity currentActivity = (MainActivity) mContext;
-        currentActivity.displayFragment(fragment);
+        currentActivity.displayFragment(fragment);*/
     }
-
 }

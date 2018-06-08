@@ -7,7 +7,7 @@
     <string name="refresh_button">Refresh</string>
     <string name="screenshots_path">/Pictures/TestScreenshots/</string>
     <string name="heroku_url">https://glacial-cove-38220.herokuapp.com/</string>
-    <string name="influencerUploadAPI">blob</string>
-    <string name="addAsinApi">asin</string>
+    <string name="influencerUploadAPI">Abling/influencerUpload</string>
+    <string name="addAsinApi">Abling/saveAsin</string>
     <string name="customerUploadAPI">asin</string>
 </resources>
