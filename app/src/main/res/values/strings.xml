@@ -10,5 +10,6 @@
     <string name="influencerUploadAPI">Abling/influencerUpload</string>
     <string name="addAsinApi">Abling/saveAsin</string>
     <string name="customerUploadAPI">AblingCustomer/customerUpload</string>
+    <string name="crawlAsinApi">Abling/crawlAsinDetails</string>
     <string name="gallery_path">/Pictures/Screenshots/</string>
 </resources>

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.amazon.mshopbling.Adapters.GridviewAdapter;
+import com.amazon.mshopbling.AsyncTasks.CrawlAsins;
 import com.amazon.mshopbling.AsyncTasks.UploadInfluencer;
 import com.amazon.mshopbling.BuildConfig;
 import com.amazon.mshopbling.R;
@@ -21,6 +22,8 @@ import com.amazon.mshopbling.R;
 import java.io.File;
 
 public class UploadInfluencerImageFragment extends Fragment {
+
+    boolean showShare;
 
     @Nullable
     @Override
@@ -32,7 +35,11 @@ public class UploadInfluencerImageFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final String imagePath = getArguments().getString("imagePath");
-        boolean showShare = getArguments().getBoolean("showShare");
+        showShare = getArguments().getBoolean("showShare");
+        if(showShare) {
+            final String asinList = getArguments().getString("asinList");
+            new CrawlAsins(getContext()).execute(asinList);
+        }
 
         GridviewAdapter gridviewAdapter = new GridviewAdapter(getActivity());
         ImageView imageView = getView().findViewById(R.id.full_image_view_in);
