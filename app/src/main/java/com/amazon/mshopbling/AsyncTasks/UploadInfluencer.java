@@ -1,4 +1,4 @@
-package com.amazon.mshopbling.Clients;
+package com.amazon.mshopbling.AsyncTasks;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -19,11 +19,11 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import java.io.File;
 import java.io.InputStreamReader;
 
-public class JaxRSClient extends AsyncTask<String,String,String> {
+public class UploadInfluencer extends AsyncTask<String,String,String> {
 
     Context mContext;
 
-    public JaxRSClient(Context context) {
+    public UploadInfluencer(Context context) {
         mContext = context;
     }
 
@@ -32,16 +32,18 @@ public class JaxRSClient extends AsyncTask<String,String,String> {
         String responseString = "";
         try {
             String url = mContext.getResources().getString(R.string.heroku_url);
+            String apiName = mContext.getResources().getString(R.string.influencerUploadAPI);
+            String apiUrl = url+apiName;
 
             HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost(url);
+            HttpPost httppost = new HttpPost(apiUrl);
 
             FileBody fileContent = new FileBody(new File(strings[0]));
 
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
             builder.addPart("file", fileContent);
-            builder.addTextBody("influencerId", "1234");
+            builder.addTextBody("tagValue", "assocamazonops");
             httppost.setEntity(builder.build());
 
             HttpResponse response = httpclient.execute(httppost);

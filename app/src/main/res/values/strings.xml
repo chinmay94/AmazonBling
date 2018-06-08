@@ -5,6 +5,9 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
     <string name="refresh_button">Refresh</string>
-    <string name="screenshots_path">/Pictures/Screenshots/</string>
-    <string name="heroku_url">https://glacial-cove-38220.herokuapp.com/blob</string>
+    <string name="screenshots_path">/Pictures/TestScreenshots/</string>
+    <string name="heroku_url">https://glacial-cove-38220.herokuapp.com/</string>
+    <string name="influencerUploadAPI">blob</string>
+    <string name="addAsinApi">asin</string>
+    <string name="customerUploadAPI">asin</string>
 </resources>

@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.amazon.mshopbling.Interfaces.DataCommunication;
 import com.amazon.mshopbling.MenuFragments.Account;
 import com.amazon.mshopbling.MenuFragments.Bling;
 import com.amazon.mshopbling.MenuFragments.BlingInfluencer;
@@ -26,7 +27,19 @@ import com.amazon.mshopbling.MenuFragments.Today;
 import com.amazon.mshopbling.MenuFragments.Wish;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, DataCommunication {
+
+    private String imagePath;
+
+    @Override
+    public void setImagePath(String path) {
+        imagePath = path;
+    }
+
+    @Override
+    public String getImagePath() {
+        return imagePath;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,6 +152,14 @@ public class MainActivity extends AppCompatActivity
             ft.commit();
         }
 
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+    }
+
+    public void displayFragment(Fragment fragment) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_frame, fragment);
+        ft.commit();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
     }
