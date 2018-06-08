@@ -30,6 +30,7 @@ import java.util.List;
 public class Bling extends Fragment {
 
     private boolean hasPermission;
+    private boolean hasPermission2;
     private String screenshotsFolderPrefix;
     private GridviewAdapter mAdapter;
     private Button button;
@@ -49,9 +50,10 @@ public class Bling extends Fragment {
 
         screenshotsFolderPrefix = getResources().getString(R.string.screenshots_path);
 
-        hasPermission = checkSetPermission();
+        hasPermission = checkSetPermission(Manifest.permission.READ_EXTERNAL_STORAGE);
+        hasPermission2 = checkSetPermission(Manifest.permission.INTERNET);
 
-        if(hasPermission){
+        if(hasPermission && hasPermission2){
             prepareFileList();
 
             button = getView().findViewById(R.id.refresh_button);
@@ -103,20 +105,20 @@ public class Bling extends Fragment {
         }
     }
 
-    private boolean checkSetPermission() {
+    private boolean checkSetPermission(String permission) {
         boolean hasPermission = false;
-        int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 0;
+        int MY_PERMISSIONS_REQUEST = 0;
         if (ContextCompat.checkSelfPermission(this.getContext(),
-                Manifest.permission.READ_EXTERNAL_STORAGE)
+                permission)
                 != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this.getActivity(),
-                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                    permission)) {
                 hasPermission = false;
             } else {
                 // No explanation needed; request the permission
                 ActivityCompat.requestPermissions(this.getActivity(),
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                        MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                        new String[]{permission},
+                        MY_PERMISSIONS_REQUEST);
             }
         } else {
             hasPermission = true;
