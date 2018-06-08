@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 
 import com.amazon.mshopbling.Adapters.GridviewAdapter;
 import com.amazon.mshopbling.AsyncTasks.UploadInfluencer;
+import com.amazon.mshopbling.BuildConfig;
 import com.amazon.mshopbling.R;
 
 import java.io.File;
@@ -63,7 +65,9 @@ public class UploadInfluencerImageFragment extends Fragment {
 
         if(imageUri != null){
             File media = new File(imageUri);
-            Uri uri = Uri.fromFile(media);
+            //Uri uri = Uri.fromFile(media);
+            Uri uri = FileProvider.getUriForFile(getContext(), BuildConfig.APPLICATION_ID + ".provider",media);
+
             shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
             shareIntent.setType("image/*");
         }
