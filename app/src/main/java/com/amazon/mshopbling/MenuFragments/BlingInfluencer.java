@@ -82,6 +82,7 @@ public class BlingInfluencer extends Fragment {
                 Fragment fragment = new UploadInfluencerImageFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("imagePath", imagePath);
+                bundle.putBoolean("showShare", false);
                 fragment.setArguments(bundle);
                 MainActivity currentActivity = (MainActivity) getActivity();
                 currentActivity.displayFragment(fragment);

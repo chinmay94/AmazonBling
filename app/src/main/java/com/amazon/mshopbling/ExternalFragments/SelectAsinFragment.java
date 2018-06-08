@@ -21,6 +21,7 @@ public class SelectAsinFragment extends Fragment {
     String divider = ",";
     String asinList = "";
     String mediaId;
+    String imagePath;
 
     @Nullable
     @Override
@@ -32,7 +33,9 @@ public class SelectAsinFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final String mediaId = getArguments().getString("mediaId");
+        final String imagePath = getArguments().getString("imagePath");
         this.mediaId = mediaId;
+        this.imagePath = imagePath;
         TextView tv = (TextView)getView().findViewById(R.id.text);
         tv.setText(mediaId);
 
@@ -65,7 +68,7 @@ public class SelectAsinFragment extends Fragment {
                         }
                     }
                 }
-                new SaveAsins(getContext()).execute(asinList, mediaId);
+                new SaveAsins(getContext()).execute(asinList, mediaId, imagePath);
             }
         });
     }

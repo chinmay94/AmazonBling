@@ -30,6 +30,7 @@ public class UploadInfluencerImageFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final String imagePath = getArguments().getString("imagePath");
+        boolean showShare = getArguments().getBoolean("showShare");
 
         GridviewAdapter gridviewAdapter = new GridviewAdapter(getActivity());
         ImageView imageView = getView().findViewById(R.id.full_image_view_in);
@@ -37,21 +38,23 @@ public class UploadInfluencerImageFragment extends Fragment {
         gridviewAdapter.setImageFromFilePathToImageViewer(imagePath, imageView);
 
         FloatingActionButton floatingActionButton = getView().findViewById(R.id.fabIn);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new UploadInfluencer(getContext()).execute(imagePath);
-            }
-        });
-
-        FloatingActionButton fabShare = getView().findViewById(R.id.fabShareIn);
-        fabShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.e("Share",imagePath);
-                createShareIntent(imagePath);
-            }
-        });
+        if(showShare) {
+            floatingActionButton.setImageResource(R.drawable.share_icon);
+            floatingActionButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.e("Share",imagePath);
+                    createShareIntent(imagePath);
+                }
+            });
+        } else {
+            floatingActionButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    new UploadInfluencer(getContext()).execute(imagePath);
+                }
+            });
+        }
     }
 
     private Intent createShareIntent(String imageUri) {

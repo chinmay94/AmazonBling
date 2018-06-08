@@ -3,9 +3,13 @@ package com.amazon.mshopbling.AsyncTasks;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.amazon.mshopbling.ExternalFragments.UploadInfluencerImageFragment;
+import com.amazon.mshopbling.MainActivity;
 import com.amazon.mshopbling.R;
 
 import org.apache.commons.io.IOUtils;
@@ -24,6 +28,7 @@ public class SaveAsins extends AsyncTask<String,String,String> {
     Context mContext;
     private ProgressDialog dialog;
     private String mediaId;
+    private String imagePath;
 
     public SaveAsins(Context context) {
         mContext = context;
@@ -39,6 +44,7 @@ public class SaveAsins extends AsyncTask<String,String,String> {
 
     @Override
     protected String doInBackground(String... strings) {
+        imagePath = strings[2];
         String responseString = "";
         try {
             String url = mContext.getResources().getString(R.string.heroku_url);
@@ -71,11 +77,12 @@ public class SaveAsins extends AsyncTask<String,String,String> {
         super.onPostExecute(result);
         dialog.dismiss();
         Toast.makeText(mContext, "Asins Added", Toast.LENGTH_SHORT).show();
-        /*Fragment fragment = new SelectAsinFragment();
+        Fragment fragment = new UploadInfluencerImageFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("mediaId", mediaId);
+        bundle.putString("imagePath", imagePath);
+        bundle.putBoolean("showShare", true);
         fragment.setArguments(bundle);
         MainActivity currentActivity = (MainActivity) mContext;
-        currentActivity.displayFragment(fragment);*/
+        currentActivity.displayFragment(fragment);
     }
 }

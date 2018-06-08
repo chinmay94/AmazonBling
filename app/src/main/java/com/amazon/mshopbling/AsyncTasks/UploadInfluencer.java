@@ -31,6 +31,7 @@ public class UploadInfluencer extends AsyncTask<String,String,String> {
     Context mContext;
     private ProgressDialog dialog;
     private String mediaId;
+    private String imagePath;
 
     public UploadInfluencer(Context context) {
         mContext = context;
@@ -46,6 +47,7 @@ public class UploadInfluencer extends AsyncTask<String,String,String> {
 
     @Override
     protected String doInBackground(String... strings) {
+        imagePath = strings[0];
         String responseString = "";
         try {
             String url = mContext.getResources().getString(R.string.heroku_url);
@@ -55,7 +57,7 @@ public class UploadInfluencer extends AsyncTask<String,String,String> {
             HttpClient httpclient = new DefaultHttpClient();
             HttpPost httppost = new HttpPost(apiUrl);
 
-            FileBody fileContent = new FileBody(new File(strings[0]));
+            FileBody fileContent = new FileBody(new File(imagePath));
 
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
@@ -85,6 +87,7 @@ public class UploadInfluencer extends AsyncTask<String,String,String> {
         Fragment fragment = new SelectAsinFragment();
         Bundle bundle = new Bundle();
         bundle.putString("mediaId", mediaId);
+        bundle.putString("imagePath", imagePath);
         fragment.setArguments(bundle);
         MainActivity currentActivity = (MainActivity) mContext;
         currentActivity.displayFragment(fragment);

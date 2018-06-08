@@ -28,13 +28,4 @@
         android:layout_margin="16dp"
         android:backgroundTint="@color/orange"/>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabShareIn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center|bottom"
-        android:src="@drawable/amazon_logo"
-        android:layout_margin="16dp"
-        android:backgroundTint="@color/colorPrimary"/>
-
 </android.support.design.widget.CoordinatorLayout>
