@@ -13,7 +13,7 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.amazon.mshopbling.Adapters.GridviewAdapter;
-import com.amazon.mshopbling.ExternalFragments.FullScreenImageFragment;
+import com.amazon.mshopbling.ExternalFragments.UploadCustomerImageFragment;
 import com.amazon.mshopbling.MainActivity;
 import com.amazon.mshopbling.R;
 import com.amazon.mshopbling.Utils.FileUtils;
@@ -45,7 +45,7 @@ public class Bling extends Fragment {
         screenshotsFolderPrefix = getResources().getString(R.string.screenshots_path);
         hasPermission = PermissionUtils.checkSetPermission(this.getContext(), this.getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE);
         hasPermission2 = PermissionUtils.checkSetPermission(this.getContext(), this.getActivity(), Manifest.permission.INTERNET);
-        if(hasPermission){
+        if(hasPermission && hasPermission2){
             populateList();
         } else {
             Toast.makeText(this.getContext(), "App does not have permission to read from storage", Toast.LENGTH_SHORT).show();
@@ -79,7 +79,7 @@ public class Bling extends Fragment {
             public void onItemClick(AdapterView<?> arg0, View arg1, int position,
                                     long id) {
                 String imagePath = fileList.get(position).getAbsolutePath();
-                Fragment fragment = new FullScreenImageFragment();
+                Fragment fragment = new UploadCustomerImageFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("imagePath", imagePath);
                 fragment.setArguments(bundle);
@@ -87,5 +87,7 @@ public class Bling extends Fragment {
                 currentActivity.displayFragment(fragment);
             }
         });
+
+
     }
 }

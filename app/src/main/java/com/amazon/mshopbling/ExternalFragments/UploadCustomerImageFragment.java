@@ -11,11 +11,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.amazon.mshopbling.Adapters.GridviewAdapter;
-import com.amazon.mshopbling.AsyncTasks.UploadInfluencer;
+import com.amazon.mshopbling.AsyncTasks.UploadCustomer;
 import com.amazon.mshopbling.R;
 
 
-public class FullScreenImageFragment extends Fragment {
+public class UploadCustomerImageFragment extends Fragment {
 
     @Nullable
     @Override
@@ -37,9 +37,7 @@ public class FullScreenImageFragment extends Fragment {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new UploadInfluencer(getContext()).execute(imagePath);
-                Snackbar.make(view, "Upload Complete", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                new UploadCustomer(getContext()).execute(imagePath);
             }
         });
     }

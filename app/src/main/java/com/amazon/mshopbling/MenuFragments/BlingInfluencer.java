@@ -13,7 +13,6 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.amazon.mshopbling.Adapters.GridviewAdapter;
-import com.amazon.mshopbling.ExternalFragments.FullScreenImageFragment;
 import com.amazon.mshopbling.ExternalFragments.UploadInfluencerImageFragment;
 import com.amazon.mshopbling.MainActivity;
 import com.amazon.mshopbling.R;
@@ -43,7 +42,7 @@ public class BlingInfluencer extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        screenshotsFolderPrefix = getResources().getString(R.string.screenshots_path);
+        screenshotsFolderPrefix = getResources().getString(R.string.gallery_path);
         hasPermission = PermissionUtils.checkSetPermission(this.getContext(), this.getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE);
         hasPermission2 = PermissionUtils.checkSetPermission(this.getContext(), this.getActivity(), Manifest.permission.INTERNET);
         if(hasPermission && hasPermission2) {
