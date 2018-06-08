@@ -13,7 +13,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.amazon.mshopbling.Adapters.GridviewAdapter;
+import com.amazon.mshopbling.Clients.JaxRSClient;
 import com.amazon.mshopbling.R;
+
+import java.io.File;
 
 public class FullScreenImageActivity extends AppCompatActivity {
 
@@ -23,7 +26,7 @@ public class FullScreenImageActivity extends AppCompatActivity {
         setContentView(R.layout.full_image);
 
         Intent intent = getIntent();
-        String filePath = intent.getExtras().getString("filePath");
+        final String filePath = intent.getExtras().getString("filePath");
 
         GridviewAdapter gridviewAdapter = new GridviewAdapter(this);
         ImageView imageView = findViewById(R.id.full_image_view);
@@ -34,6 +37,7 @@ public class FullScreenImageActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                new JaxRSClient(FullScreenImageActivity.this).execute(filePath);
                 Snackbar.make(view, "Upload Complete", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
