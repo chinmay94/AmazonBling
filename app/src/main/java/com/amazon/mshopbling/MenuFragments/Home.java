@@ -28,6 +28,6 @@ public class Home extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ImageView imageView = (ImageView) getView().findViewById(R.id.image);
-        ImageUtils.setImageToImageViewAsPerDisplaySize(this.getActivity(), imageView, R.drawable.home_mock);
+        ImageUtils.setImageToImageViewAsPerDisplaySize(this.getActivity(), imageView, R.drawable.mock_home_page);
     }
 }

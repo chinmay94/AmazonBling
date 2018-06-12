@@ -1,22 +1,24 @@
 package com.amazon.mshopbling.Utils;
 
 import android.app.Activity;
-import android.graphics.Point;
-import android.view.Display;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.widget.ImageView;
-
 import com.squareup.picasso.Picasso;
 
 public class ImageUtils {
 
     public static void setImageToImageViewAsPerDisplaySize(Activity activity, ImageView imageView, int resourceId) {
 
-        Display display = activity.getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getRealSize(size);
+        BitmapFactory.Options dimensions = new BitmapFactory.Options();
+        dimensions.inJustDecodeBounds = true;
+        Bitmap mBitmap = BitmapFactory.decodeResource(activity.getResources(), resourceId, dimensions);
+        int height = dimensions.outHeight;
+        int width =  dimensions.outWidth;
+
         Picasso.get()
                 .load(resourceId)
-                .resize(size.x,size.y)
+                .resize(width,height)
                 .transform(new CropSquareTransformation())
                 .into(imageView);
 
