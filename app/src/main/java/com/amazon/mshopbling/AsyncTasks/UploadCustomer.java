@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.amazon.mshopbling.ExternalFragments.CustomerAsinSelectorFragment;
 import com.amazon.mshopbling.MainActivity;
@@ -103,6 +104,7 @@ public class UploadCustomer extends AsyncTask<String,String,String> {
                 }
             } catch (Exception e) {
                 Log.e("UploadCustomer", "Unable to parse response");
+                Toast.makeText(this.mContext, "No match found", Toast.LENGTH_SHORT).show();
             }
         }
     }

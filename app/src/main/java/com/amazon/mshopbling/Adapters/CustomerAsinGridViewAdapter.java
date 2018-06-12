@@ -1,14 +1,22 @@
 package com.amazon.mshopbling.Adapters;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.amazon.mshopbling.R;
+import com.amazon.mshopbling.Utils.ImageUtils;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +52,7 @@ public class CustomerAsinGridViewAdapter extends BaseAdapter{
     public static class ViewHolder
     {
         public TextView asinText;
-        public Button getMeToAmazonButton;
+        public ImageView imageView;
     }
 
     @Override
@@ -58,7 +66,7 @@ public class CustomerAsinGridViewAdapter extends BaseAdapter{
             convertView = inflator.inflate(R.layout.gridview_customer_asins, null);
 
             view.asinText = (TextView) convertView.findViewById(R.id.textViewAsins);
-            view.getMeToAmazonButton = (Button) convertView.findViewById(R.id.getMeOnAmazonButton);
+            view.imageView = (ImageView) convertView.findViewById(R.id.imageViewCustomerAsin);
 
             convertView.setTag(view);
         }
@@ -67,8 +75,35 @@ public class CustomerAsinGridViewAdapter extends BaseAdapter{
             view = (ViewHolder) convertView.getTag();
         }
 
-        TextView textView = view.asinText;
-        textView.setText(customerAsins.get(position));
+        String asinInfo = customerAsins.get(position);
+        try {
+            final JSONObject asinInfoJson = new JSONObject(asinInfo);
+
+            TextView textView = view.asinText;
+            textView.setText(asinInfoJson.getString("asinTitle"));
+
+            ImageView imageView = view.imageView;
+            Picasso.get()
+                    .load(asinInfoJson.getString("asinImage"))
+                    .into(imageView);
+
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        String amazonUrl = "com.amazon.mobile.shopping://www.amazon.in/products/" + asinInfoJson.getString("asin") + "/";
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse(amazonUrl));
+                        view.getContext().startActivity(intent);
+                    } catch (Exception e) {
+                        Log.e("AmazonIntent", "JsonParserException");
+                    }
+                }
+            });
+
+        } catch (Exception e) {
+            Log.e("customerAsinGridView", "JsonParserException");
+        }
 
         return convertView;
     }

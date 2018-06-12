@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.amazon.mshopbling.R;
+import com.amazon.mshopbling.Utils.ImageUtils;
 
 public class Wish extends Fragment {
 
@@ -24,7 +25,6 @@ public class Wish extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ImageView imageView = (ImageView) getView().findViewById(R.id.image);
-        imageView.setScaleType(ImageView.ScaleType.FIT_START);
-        imageView.setImageResource(R.drawable.mock_wish);
+        ImageUtils.setImageToImageViewAsPerDisplaySize(this.getActivity(), imageView, R.drawable.mock_wish);
     }
 }

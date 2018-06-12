@@ -31,11 +31,11 @@
             android:title="      Prime" />
         <item
             android:id="@+id/nav_bling"
-            android:title="      Bling!" />
+            android:title="@string/bling" />
         <item
             android:id="@+id/nav_bling_influencer"
             android:visible="true"
-            android:title="      Bling Influencer!" />
+            android:title="@string/blingInfluencer" />
         <item
             android:id="@+id/nav_sell"
             android:title="      Sell on Amazon" />

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.amazon.mshopbling.R;
+import com.amazon.mshopbling.Utils.ImageUtils;
 
 public class Settings extends Fragment {
 
@@ -23,6 +24,6 @@ public class Settings extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ImageView imageView = (ImageView) getView().findViewById(R.id.image);
-        imageView.setImageResource(R.drawable.mock_account);
+        ImageUtils.setImageToImageViewAsPerDisplaySize(this.getActivity(), imageView, R.drawable.mock_account);
     }
 }

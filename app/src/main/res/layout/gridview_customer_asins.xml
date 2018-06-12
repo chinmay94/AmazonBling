@@ -6,15 +6,20 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
+    <ImageView
+        android:id="@+id/imageViewCustomerAsin"
+        android:scaleType="fitXY"
+        android:layout_width="240dp"
+        android:layout_height="320dp"
+        android:padding="1dp"
+        android:background="#FFFFFF"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textViewAsins"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/getMeOnAmazonButton"
-        android:layout_below="@id/textViewAsins"/>
+        android:id="@+id/textViewAsins"
+        android:layout_below="@+id/imageViewCustomerAsin"
+        android:textColor="@color/colorPrimary"
+        android:layout_centerInParent="true"/>
 
 </RelativeLayout>
