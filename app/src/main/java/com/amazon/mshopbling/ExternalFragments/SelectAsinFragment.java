@@ -3,25 +3,32 @@ package com.amazon.mshopbling.ExternalFragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.TextView;
 
+import com.amazon.mshopbling.Adapters.SelectAsinAdapter;
+import com.amazon.mshopbling.AsinHelpers.Asin;
 import com.amazon.mshopbling.AsyncTasks.SaveAsins;
 import com.amazon.mshopbling.R;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SelectAsinFragment extends Fragment {
 
-    String divider = ",";
-    String asinList = "";
     String mediaId;
     String imagePath;
+    ArrayList<Asin> asins;
 
     @Nullable
     @Override
@@ -36,40 +43,50 @@ public class SelectAsinFragment extends Fragment {
         final String imagePath = getArguments().getString("imagePath");
         this.mediaId = mediaId;
         this.imagePath = imagePath;
-        TextView tv = (TextView)getView().findViewById(R.id.text);
-        tv.setText(mediaId);
 
-        final List<EditText> editTextList= new ArrayList<>();
+        prepareAsinList();
 
-        EditText editText1 = (EditText)getView().findViewById(R.id.asin1);
-        editTextList.add(editText1);
-        EditText editText2 = (EditText)getView().findViewById(R.id.asin2);
-        editTextList.add(editText2);
-        EditText editText3 = (EditText)getView().findViewById(R.id.asin3);
-        editTextList.add(editText3);
-        EditText editText4 = (EditText)getView().findViewById(R.id.asin4);
-        editTextList.add(editText4);
-        EditText editText5 = (EditText)getView().findViewById(R.id.asin5);
-        editTextList.add(editText5);
+        final GridView gridView = (GridView) getActivity().findViewById(R.id.gridViewSelectAsins);
+        gridView.setAdapter(new SelectAsinAdapter(getActivity(), asins));
 
-        Button button = (Button)getView().findViewById(R.id.submit_button);
+        Button button = (Button)getView().findViewById(R.id.selectAsinButton);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                asinList = "";
-                for(EditText editText: editTextList) {
-                    String value = editText.getText().toString();
-                    if(value.length()!=0) {
-                        if(asinList.length()==0) {
-                            asinList = value;
-                        } else {
-                            asinList = asinList+divider+value;
-                        }
+                StringBuilder asinList = new StringBuilder();
+                for(int i=0; i<gridView.getChildCount(); i++) {
+                    View v = gridView.getChildAt(i);
+                    CheckBox c = v.findViewById(R.id.grid_item_checkbox);
+                    if(c.isChecked()) {
+                        asinList.append(c.getText().toString()).append(",");
                     }
                 }
-                new SaveAsins(getContext()).execute(asinList, mediaId, imagePath);
+                String saveAsinList = asinList.toString();
+                saveAsinList = saveAsinList.substring(0,saveAsinList.length()-1);
+                Log.e("saveAsins", saveAsinList);
+                new SaveAsins(getContext()).execute(saveAsinList, mediaId, imagePath);
             }
         });
+    }
+
+    private void prepareAsinList() {
+        asins = new ArrayList<>();
+        InputStream inputStream = getActivity().getResources().openRawResource(R.raw.sampleasins);
+        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+        try{
+            String inputLine = "";
+            while((inputLine = bufferedReader.readLine() ) != null) {
+                String[] splits = inputLine.split(",",-1);
+                Asin asin = Asin.builder()
+                        .asin(splits[0])
+                        .asinTitle(splits[1])
+                        .category(splits[2])
+                        .imageUrl(splits[3])
+                        .build();
+                asins.add(asin);
+            }
+        } catch (Exception e) {}
     }
 }

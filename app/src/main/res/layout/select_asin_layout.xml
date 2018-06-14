@@ -11,47 +11,19 @@
         android:weightSum="100"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
+        <GridView
             android:layout_height="wrap_content"
-            android:id="@+id/text"
-            android:layout_weight="5"
-            android:textColor="@color/colorPrimary"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/asin1"
-            android:layout_weight="5"
-            android:textColor="@color/colorPrimary" />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/asin2"
-            android:layout_weight="5"
-            android:textColor="@color/colorPrimary" />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/asin3"
-            android:layout_weight="5"
-            android:textColor="@color/colorPrimary" />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/asin4"
-            android:layout_weight="5"
-            android:textColor="@color/colorPrimary" />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/asin5"
-            android:layout_weight="5"
-            android:textColor="@color/colorPrimary" />
+            android:background="@color/colorPrimary"
+            android:id="@+id/gridViewSelectAsins"
+            android:layout_width="wrap_content"
+            android:numColumns="2"
+            android:layout_weight="95">
+        </GridView>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Submit"
-            android:id="@+id/submit_button"
+            android:text="Go!"
+            android:id="@+id/selectAsinButton"
             android:layout_weight="5"
             android:background="@color/colorPrimary"
             android:textColor="@color/light_grey"/>
