@@ -3,9 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/relativeLayout1"
     android:padding="1dp"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <ImageView
         android:id="@+id/imageView1"
         android:scaleType="centerCrop"
@@ -14,5 +17,6 @@
         android:layout_alignParentTop="true"
         android:padding="1dp"
         android:background="@color/colorPrimary"/>
+    </android.support.v7.widget.CardView>
 
 </RelativeLayout>

@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amazon.mshopbling.Adapters.SelectAsinAdapter;
 import com.amazon.mshopbling.AsinHelpers.Asin;
@@ -63,9 +64,13 @@ public class SelectAsinFragment extends Fragment {
                     }
                 }
                 String saveAsinList = asinList.toString();
-                saveAsinList = saveAsinList.substring(0,saveAsinList.length()-1);
-                Log.e("saveAsins", saveAsinList);
-                new SaveAsins(getContext()).execute(saveAsinList, mediaId, imagePath);
+                if(asinList.length()>1) {
+                    saveAsinList = saveAsinList.substring(0, saveAsinList.length() - 1);
+                    Log.e("saveAsins", saveAsinList);
+                    new SaveAsins(getContext()).execute(saveAsinList, mediaId, imagePath);
+                } else {
+                    Toast.makeText(getContext(), "Please select atleast one ASIN", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
