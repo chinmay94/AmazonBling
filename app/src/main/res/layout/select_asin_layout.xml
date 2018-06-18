@@ -17,8 +17,14 @@
             android:id="@+id/gridViewSelectAsins"
             android:layout_width="wrap_content"
             android:numColumns="2"
-            android:layout_weight="95">
+            android:layout_weight="90">
         </GridView>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/editTextSelectAsin"
+            android:layout_weight="5"
+            android:inputType="text"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

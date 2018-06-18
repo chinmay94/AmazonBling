@@ -8,7 +8,7 @@
     android:padding="1dp">
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="400dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,7 +19,13 @@
         android:layout_height="320dp"
         android:layout_gravity="center">
     </ImageView>
-
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/grid_item_tv"
+            android:maxLines="4"
+            android:scrollbars = "vertical"
+            android:singleLine="false" />
     <CheckBox
         android:id="@+id/grid_item_checkbox"
         android:layout_width="wrap_content"

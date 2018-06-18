@@ -91,7 +91,7 @@ public class CustomerAsinGridViewAdapter extends BaseAdapter{
                 @Override
                 public void onClick(View view) {
                     try {
-                        String amazonUrl = "com.amazon.mobile.shopping://www.amazon.in/products/" + asinInfoJson.getString("asin") + "/";
+                        String amazonUrl = "com.amazon.mobile.shopping://www.amazon.in/products/" + asinInfoJson.getString("asin") + "/?tag=" + tagValue;
                         Intent intent = new Intent(Intent.ACTION_VIEW);
                         intent.setData(Uri.parse(amazonUrl));
                         view.getContext().startActivity(intent);

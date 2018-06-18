@@ -11,7 +11,7 @@
     <string name="addAsinApi">Abling/saveAsin</string>
     <string name="customerUploadAPI">AblingCustomer/customerUpload</string>
     <string name="crawlAsinApi">Abling/crawlAsinDetails</string>
-    <string name="gallery_path">/Pictures/Screenshots/</string>
+    <string name="gallery_path">/hack/</string>
     <string name="bling">\u0020\u0020\u0020\u0020\u0020\u0020Shop the look</string>
     <string name="blingInfluencer">\u0020\u0020\u0020\u0020\u0020\u0020Socialize</string>
 </resources>

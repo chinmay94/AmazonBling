@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -30,6 +32,7 @@ public class SelectAsinFragment extends Fragment {
     String mediaId;
     String imagePath;
     ArrayList<Asin> asins;
+    boolean[] selectionStatus;
 
     @Nullable
     @Override
@@ -47,26 +50,38 @@ public class SelectAsinFragment extends Fragment {
 
         prepareAsinList();
 
+        selectionStatus = new boolean[asins.size()];
+
         final GridView gridView = (GridView) getActivity().findViewById(R.id.gridViewSelectAsins);
-        gridView.setAdapter(new SelectAsinAdapter(getActivity(), asins));
+        gridView.setAdapter(new SelectAsinAdapter(getActivity(), asins, selectionStatus));
 
         Button button = (Button)getView().findViewById(R.id.selectAsinButton);
+        final EditText editText = (EditText) getActivity().findViewById(R.id.editTextSelectAsin);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 StringBuilder asinList = new StringBuilder();
-                for(int i=0; i<gridView.getChildCount(); i++) {
-                    View v = gridView.getChildAt(i);
-                    CheckBox c = v.findViewById(R.id.grid_item_checkbox);
-                    if(c.isChecked()) {
-                        asinList.append(c.getText().toString()).append(",");
+                for(int i=0; i<asins.size(); i++) {
+                    if(selectionStatus[i]) {
+                        asinList.append(asins.get(i).getAsin()).append(",");
                     }
                 }
+
+                try{
+                    String splits[] = editText.getText().toString().split(",",-1);
+                    for(int i=0; i<splits.length; i++) {
+                        if(splits[i].length()>1){
+                            asinList.append(splits[i]).append(",");
+                        }
+                    }
+                } catch (Exception e) {}
                 String saveAsinList = asinList.toString();
                 if(asinList.length()>1) {
                     saveAsinList = saveAsinList.substring(0, saveAsinList.length() - 1);
                     Log.e("saveAsins", saveAsinList);
+                    Log.e("saveAsins", "mediaPath:"+mediaId);
+                    Log.e("imagePath", "mediaPath:"+imagePath);
                     new SaveAsins(getContext()).execute(saveAsinList, mediaId, imagePath);
                 } else {
                     Toast.makeText(getContext(), "Please select atleast one ASIN", Toast.LENGTH_SHORT).show();

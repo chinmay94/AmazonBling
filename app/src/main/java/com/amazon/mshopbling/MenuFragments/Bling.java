@@ -54,6 +54,10 @@ public class Bling extends Fragment {
 
     public void populateList() {
         fileList = FileUtils.prepareFileList(screenshotsFolderPrefix);
+        if(fileList.size()<1){
+            Toast.makeText(getContext(), "No images found!",Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         button = getView().findViewById(R.id.refresh_button);
         button.setOnClickListener(new View.OnClickListener() {

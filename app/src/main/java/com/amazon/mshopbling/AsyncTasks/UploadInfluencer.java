@@ -62,7 +62,7 @@ public class UploadInfluencer extends AsyncTask<String,String,String> {
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
             builder.addPart("file", fileContent);
-            builder.addTextBody("tagValue", "assocamazonops");
+            builder.addTextBody("tagValue", "linkacco-21");
             httppost.setEntity(builder.build());
 
             HttpResponse response = httpclient.execute(httppost);
